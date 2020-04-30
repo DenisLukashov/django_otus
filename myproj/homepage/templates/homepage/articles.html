@@ -1,0 +1,25 @@
+{% extends 'homepage/base.html' %}
+{% block title %}
+    Articles
+{% endblock %}
+
+{% block body %}
+    <h1>Hello, Articles!</h1>
+    <ul class="list-group">
+    {% for article in articles %}
+    {% cycle val1 val2 as val silent%}
+        <li class="list-group-item {% cycle '' 'list-group-item-secondary'%}">Article № {{ article }} {{ val|safe }}</li> 
+    {% endfor %}
+    {% comment %}
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+    {% endcomment %}
+    {% cycle 'dark' 'danger' as theme silent%}
+    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
+    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
+    {% cycle theme %}
+    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
+    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
+    </ul>
+{% endblock %}
+
