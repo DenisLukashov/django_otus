@@ -5,21 +5,131 @@
 
 {% block body %}
     <h1>Hello, Articles!</h1>
-    <ul class="list-group">
-    {% for article in articles %}
-    {% cycle val1 val2 as val silent%}
-        <li class="list-group-item {% cycle '' 'list-group-item-secondary'%}">Article № {{ article }} {{ val|safe }}</li> 
-    {% endfor %}
+    <div>
+        {% for num in articles %}
+            
+            
+            {% if num == 1 %}
+                <h1>Article {{ num }}</h1>
+            {% elif num == 2 %}
+                <h2>Article {{ num }}</h2>
+            {% elif num == 3 %}
+                <h3>Article {{ num }}</h3>
+            {% else %}
+                <h4>Article {{ num }}</h4>
+            {% endif %}
+                
+        {% empty %}
+            <div>Sorry, no articles</div>
+        {% endfor %}
+        
+    </div>
+    <div>
+        <h4>
+            {% firstof val0 val1 val2 %}
+        </h4>
+    </div>
+    <div>
+      
+      {% if obj.foo < obj.bar %}
+        <div>obj.foo {{ obj.foo }} &lt; obj.bar {{ obj.bar }}</div>
+      {% endif %}
+
+        <br>
+        {{ obj.data.spam }}
+        {{ obj.list.2 }}
+
+        {{ obj.list|length }}
+        {% if obj.list|length > 5 %}
+            <h3>Length of list > 5</h3>
+        {% else %}
+            <h3>Length of list &lt; 5 </h3>
+        {% endif %}
+            
+    </div>
+
+    <div>
+        <h5>{{ obj.list.2|add:'5' }}</h5>
+        <h5>{{ val1|add:'5' }}</h5>
+        <h5>{{ obj.list|add:obj.list }}</h5>
+        <pre>{{ val1|center:16 }}</pre>
+        <pre>{{ val0|capfirst }}</pre>
+
+        <pre>{{ val1|title }}</pre>
+        <pre>{{ a_title|title }}</pre>
+
+        <h5>{{ string|linebreaksbr }}</h5>
+
+        {# <h4>{% now "j F Y G:i" %}</h4> #}
+        <h5>{{ current|date:"SHORT_DATETIME_FORMAT" }}</h5>
+    </div>
+
+    
     {% comment %}
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+    <div>          
+        {% for date in dates %}
+            {% ifchanged date.month %}
+                <br>
+                <h3>{{ date|date:"F" }}</h3>
+            {% endifchanged %}
+            {% ifchanged date.date %}
+                <hr>
+                <h4>{{ date|date:"SHORT_DATE_FORMAT" }}</h4>
+            {% else %}
+                ;
+            {% endifchanged %}
+            {{ date|date:"TIME_FORMAT" }}            
+        {% endfor %}
+    </div>
     {% endcomment %}
-    {% cycle 'dark' 'danger' as theme silent%}
-    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
-    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
-    {% cycle theme %}
-    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
-    <li class="list-group-item list-group-item-{{ theme }}">A simple secondary list group item</li>
-    </ul>
+        
+    <div>
+        Look:
+        {% spaceless %}
+            <p>
+                <span>Span</span>
+                <p>Paragaf</p>
+                <a href="#">Google</a>
+            </p>
+        {% endspaceless %}
+            
+    </div>
+
+    <div>
+        <ul class="list-group">
+            
+            {% for item in items %}
+            <li class="list-group-item">{{ item }} berr{{ item|pluralize:'y,ies' }}</li>
+            {% endfor %}
+                
+
+
+        </ul>
+    </div>
+    
+    <pre>
+        {% templatetag openblock %}<br>
+        {% templatetag closeblock %}<br>
+        {% templatetag openvariable %}<br>
+        {% templatetag closevariable %}<br>
+        {% templatetag openbrace %}<br>
+        {% templatetag opencomment %}<br>
+    </pre>
+    <hr>
+    <pre>
+        
+        {% verbatim %}
+            {%
+            %}
+            }}
+            
+            }
+            {#
+        {% endverbatim %}
+            
+    </pre>
+
+
+
 {% endblock %}
 
