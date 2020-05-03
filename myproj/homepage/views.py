@@ -19,9 +19,6 @@ from random import randint
 #         return render(request, self.template_name)
 
 
-
-
-
 class ArticleView(TemplateView):
     template_name = 'homepage/articles.html'
 
@@ -60,7 +57,6 @@ class ArticleView(TemplateView):
         }
         context.update(args)
         return context
-
 
 
 def article_year(request, year):
