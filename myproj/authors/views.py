@@ -18,12 +18,11 @@ class IndexView(ListView):
 class CreateAutherView(TemplateView):
     template_name = 'authors/create.html'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AuthorForm()
         return context
-        
+
     def post(self, request):
         form = AuthorForm(request.POST)
         if not form.is_valid():
@@ -32,5 +31,3 @@ class CreateAutherView(TemplateView):
         new_author.level = 'J'
         new_author.save()
         return redirect(reverse('index'))
-        
-
